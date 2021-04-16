@@ -17,11 +17,11 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-AC_PREREQ(2.59)
-AC_INIT(castget, 2.0.1, mariuslj@ifi.uio.no)
+AC_PREREQ([2.71])
+AC_INIT([castget],[2.0.1],[mariuslj@ifi.uio.no])
 AM_INIT_AUTOMAKE([1.8 dist-bzip2 no-dist-gzip foreign])
 AC_CONFIG_SRCDIR([src/castget.c])
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIRS([m4])
 
 # Checks for programs.
@@ -51,7 +51,7 @@ AC_SUBST(PTHREAD_CFLAGS)
 AC_SUBST(PTHREAD_LIBS)
 
 #AC_ARG_WITH(taglib, [  --without-taglib        disable taglib support])
-AC_ARG_WITH(taglib, AC_HELP_STRING([--without-taglib], [disable taglib support])])
+AC_ARG_WITH(taglib, AS_HELP_STRING([--without-taglib],[disable taglib support])])
 if test "x$with_taglib" != "xno"; then
   PKG_CHECK_MODULES(TAGLIB, [taglib_c])
   AC_SUBST(TAGLIB_CFLAGS)
@@ -60,7 +60,15 @@ if test "x$with_taglib" != "xno"; then
 fi
 
 # Checks for header files.
-AC_HEADER_STDC
+m4_warn([obsolete],
+[The preprocessor macro `STDC_HEADERS' is obsolete.
+  Except in unusual embedded environments, you can safely include all
+  ISO C90 headers unconditionally.])dnl
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 AC_CHECK_HEADERS([stdlib.h string.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
